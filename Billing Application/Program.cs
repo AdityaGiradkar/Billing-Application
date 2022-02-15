@@ -10,7 +10,7 @@ namespace Billing_Application
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("hello world");
+            Console.WriteLine("Welcome to the Grocery");
             Console.ReadLine();
         }
     }
