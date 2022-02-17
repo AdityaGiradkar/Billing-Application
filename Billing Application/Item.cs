@@ -33,5 +33,10 @@ namespace Billing_Application
             _price = Price;
             _quantity = Quantity;
         }
+
+        public void updateQuantity(int newQuantity)
+        {
+            _quantity = newQuantity;
+        }
     }
 }
