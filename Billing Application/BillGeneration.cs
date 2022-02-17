@@ -24,8 +24,9 @@ namespace Billing_Application
         public void addItem(Item selectedItem)
         {
             _cart.Add(selectedItem);
-            Console.WriteLine("Item is added to your Cart.");
-            Console.WriteLine("Press Enter to continue");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\t\tItem is added to your Cart.");
+            Console.WriteLine("\t\tPress Enter to continue");
             Console.ReadLine();
         }
 
@@ -35,16 +36,21 @@ namespace Billing_Application
             if (!isCartEmpty())
             {
                 int serialNumber = 1;
-
-                Console.WriteLine("Sr. No.\t Item Name\t Quantity\t Price(Per Item)\t Total Price");
+                Console.WriteLine("\n");
+                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine(" Sr. No.\t Item Name\t\t      Quantity\t Price(Per Item)   Total Price");
+                Console.WriteLine("----------------------------------------------------------------------------------");
                 foreach (var cartItem in _cart)
                 {
-                    Console.WriteLine("{0}.\t {1}\t {2}\t {3}\t {4}", serialNumber++, cartItem.name, cartItem.quantity, cartItem.price, cartItem.quantity * cartItem.price);
+                    Console.WriteLine("   {0}.\t \t {1, -30}\t {2, -7}\t {3, -5}        {4}", serialNumber++, cartItem.name, cartItem.quantity, cartItem.price, cartItem.quantity * cartItem.price);
                 }
+                Console.WriteLine("\n");
             }
             else
             {
-                Console.WriteLine("Currently cart is empty. Please select some Item from the list.");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\t\tCurrently cart is empty. Please select some Item from the list.");
             }
             
         }
@@ -57,18 +63,24 @@ namespace Billing_Application
                 int serialNumber = 1;
                 double totalPrice = 0;
 
-                Console.WriteLine("Sr. No.\t Item Name\t Quantity\t Price(Per Item)\t Total Price");
+                Console.WriteLine("\n");
+                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine(" Sr. No.\t Item Name\t\t      Quantity\t Price(Per Item)   Total Price");
+                Console.WriteLine("----------------------------------------------------------------------------------");
                 foreach (var cartItem in _cart)
                 {
-                    Console.WriteLine("{0}.\t {1}\t {2}\t {3}\t {4}", serialNumber++, cartItem.name, cartItem.quantity, cartItem.price, cartItem.quantity * cartItem.price);
+                    Console.WriteLine("   {0}.\t \t {1, -30}\t {2, -7}\t {3, -5}        {4}", serialNumber++, cartItem.name, cartItem.quantity, cartItem.price, cartItem.quantity * cartItem.price);
                     totalPrice += cartItem.price * cartItem.quantity;
                 }
                 Console.WriteLine("----------------------------------------------------------------------------------");
-                Console.WriteLine("Total Price \t\t\t\t\t\t {0}", totalPrice);
+                Console.WriteLine("\tTotal Price \t\t\t\t\t\t\t  Rs. {0}", totalPrice);
+                Console.WriteLine("\n");
             }
             else
             {
-                Console.WriteLine("Currently cart is empty. Please select some Item before generating bill.");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\t\tCurrently cart is empty. Please select some Item before generating bill.");
             }
         }
 
