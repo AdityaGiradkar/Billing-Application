@@ -10,6 +10,7 @@ namespace Billing_Application
     {
         private static BillGeneration _bill = new BillGeneration();
 
+
         static int Main(string[] args)
         {
             Console.WriteLine("Welcome to the Grocery");
@@ -94,6 +95,13 @@ namespace Billing_Application
 
         }
 
+
+        /// <summary>
+        /// Check if input is able to convert into integer
+        /// </summary>
+        /// <param name="strNumber"> Input string </param>
+        /// <param name="number"> refrence variable used to hold converted int from string </param>
+        /// <returns> true - input string is succesfully converted to int else false </returns>
         private static bool isInt(string strNumber, ref int number)
         {
             if (!int.TryParse(strNumber, out number))
@@ -108,6 +116,11 @@ namespace Billing_Application
             return true;
         }
 
+
+        /// <summary>
+        /// Prints main category wich is present in main program
+        /// </summary>
+        /// <param name="categoryChoice"> refrence variable containing main categories </param>
         private static void printCategoryChoices(ref List<string> categoryChoice) 
         {
             Console.Clear();
@@ -125,6 +138,11 @@ namespace Billing_Application
             Console.WriteLine("----------------------------------------------------------------------------------\n");
         }
 
+
+        /// <summary>
+        /// Prints all the items inside a perticular category
+        /// </summary>
+        /// <param name="subCategoryChoice"></param>
         private static void printSubCategoryChoices(ref List<Item> subCategoryChoice)
         {
             Console.Clear();
@@ -146,14 +164,14 @@ namespace Billing_Application
 
         private static void selectAndAddToCart(ref List<Item> categoryItems)
         {
-            while (true)            //this will loop will run untill selected to go back to main menu 
+            while (true)            //This loop will run until "Return to Main Menu" selected 
             {
                 int selectedItem = -1;
-                while (true)        //This will loop will run until entered choice of item is valid.
+                while (true)        //This loop will run until entered choice of item is valid.
                 {
                     Console.Write("\tEnter item number you want to buy: ");
 
-                    if(!isInt(Console.ReadLine(), ref selectedItem))
+                    if(!isInt(Console.ReadLine(), ref selectedItem))        //check if entered string is number or not
                     {
                         printSubCategoryChoices(ref categoryItems);
                         continue;
