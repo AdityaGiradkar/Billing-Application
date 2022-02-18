@@ -216,12 +216,15 @@ namespace Billing_Application
 
                 if (selectedItemDetails.quantity >= quantityRequired && quantityRequired > 0)
                 {
+
                     _bill.addItem(new Item(selectedItemDetails.name, selectedItemDetails.price, quantityRequired));
 
-                    selectedItemDetails.updateQuantity(selectedItemDetails.quantity - quantityRequired);
+                    int newQuantity = selectedItemDetails.quantity - quantityRequired;
+
+                    selectedItemDetails.updateQuantity(newQuantity);
 
                     //update in excel
-                    updateInExcel(selectedItem + 1, 4, worksheetNumber, selectedItemDetails.quantity - quantityRequired);
+                    updateInExcel(selectedItem + 1, 4, worksheetNumber, newQuantity);
                     
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("\t\tItem is added to your Cart.");
