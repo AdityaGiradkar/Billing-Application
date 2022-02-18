@@ -10,16 +10,14 @@ namespace Billing_Application
     {
         private static BillGeneration _bill = new BillGeneration();
 
-
         static int Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Grocery");
-            List<Item> books = Books.LoadBooks();
-            List<Item> fruits = Fruits.LoadFruits();
-            List<Item> games = Games.LoadGames();
-            List<Item> movies = Movies.LoadMovies();
-            List<Item> sports = Sports.LoadSports();
-
+            Console.WriteLine(" Loading...\n Please wait.");
+            List<Item> books = Categories.LoadBooks();
+            List<Item> fruits = Categories.LoadFruits();
+            List<Item> games = Categories.LoadGames();
+            List<Item> movies = Categories.LoadMovies();
+            List<Item> sports = Categories.LoadSports();
 
             List<string> categoryChoices = new List<string>()
                                         {
@@ -49,23 +47,23 @@ namespace Billing_Application
                 {
                     case 1:
                         printSubCategoryChoices(ref books);
-                        selectAndAddToCart(ref books);
+                        selectAndAddToCart(ref books, 2);
                         break;
                     case 2:
                         printSubCategoryChoices(ref fruits);
-                        selectAndAddToCart(ref fruits);
+                        selectAndAddToCart(ref fruits, 3);
                         break;
                     case 3:
                         printSubCategoryChoices(ref games);
-                        selectAndAddToCart(ref games);
+                        selectAndAddToCart(ref games, 4);
                         break;
                     case 4:
                         printSubCategoryChoices(ref movies);
-                        selectAndAddToCart(ref movies);
+                        selectAndAddToCart(ref movies, 1);
                         break;
                     case 5:
                         printSubCategoryChoices(ref sports);
-                        selectAndAddToCart(ref sports);
+                        selectAndAddToCart(ref sports, 5);
                         break;
                     case 6:
                         _bill.printCart();
@@ -162,7 +160,12 @@ namespace Billing_Application
         }
 
 
-        private static void selectAndAddToCart(ref List<Item> categoryItems)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryItems"></param>
+        /// <param name="worksheetNumber"></param>
+        private static void selectAndAddToCart(ref List<Item> categoryItems, int worksheetNumber)
         {
             while (true)            //This loop will run until "Return to Main Menu" selected 
             {
@@ -216,6 +219,16 @@ namespace Billing_Application
                     _bill.addItem(new Item(selectedItemDetails.name, selectedItemDetails.price, quantityRequired));
 
                     selectedItemDetails.updateQuantity(selectedItemDetails.quantity - quantityRequired);
+
+                    //update in excel
+                    updateInExcel(selectedItem + 1, 4, worksheetNumber, selectedItemDetails.quantity - quantityRequired);
+                    
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("\t\tItem is added to your Cart.");
+                    Console.WriteLine("\t\tPress Enter to continue");
+                    Console.ReadLine();
+
+
                     printSubCategoryChoices(ref categoryItems);
                 }
                 else
@@ -228,6 +241,14 @@ namespace Billing_Application
                 }
             }
             
+        }
+
+        private static void updateInExcel(int row, int column, int worksheetNumber, int newQuantity)
+        {
+            Excel excel = new Excel(@"E:\Ubisoft\Courses\Projects\Billing Application\products.xlsx", worksheetNumber);
+            excel.updateQuantityCell(row, column, newQuantity);
+            excel.save();
+            excel.close();
         }
     }
 }

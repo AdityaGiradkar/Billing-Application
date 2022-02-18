@@ -24,10 +24,6 @@ namespace Billing_Application
         public void addItem(Item selectedItem)
         {
             _cart.Add(selectedItem);
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\t\tItem is added to your Cart.");
-            Console.WriteLine("\t\tPress Enter to continue");
-            Console.ReadLine();
         }
 
 
