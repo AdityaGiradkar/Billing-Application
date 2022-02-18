@@ -14,11 +14,11 @@ namespace Billing_Application
         static int Main(string[] args)
         {
             Console.WriteLine("Welcome to the Grocery");
-            List<Item> books = Books.LoadBooks();
-            List<Item> fruits = Fruits.LoadFruits();
-            List<Item> games = Games.LoadGames();
-            List<Item> movies = Movies.LoadMovies();
-            List<Item> sports = Sports.LoadSports();
+            List<Item> books = Categories.LoadBooks();
+            List<Item> fruits = Categories.LoadFruits();
+            List<Item> games = Categories.LoadGames();
+            List<Item> movies = Categories.LoadMovies();
+            List<Item> sports = Categories.LoadSports();
 
 
             List<string> categoryChoices = new List<string>()
