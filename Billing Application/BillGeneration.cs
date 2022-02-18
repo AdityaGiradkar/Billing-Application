@@ -58,6 +58,7 @@ namespace Billing_Application
             {
                 int serialNumber = 1;
                 double totalPrice = 0;
+                double priceAfterDiscount = 0;
 
                 Console.WriteLine("\n");
                 Console.WriteLine("----------------------------------------------------------------------------------");
@@ -70,7 +71,16 @@ namespace Billing_Application
                     totalPrice += cartItem.price * cartItem.quantity;
                 }
                 Console.WriteLine("----------------------------------------------------------------------------------");
-                Console.WriteLine("\tTotal Price \t\t\t\t\t\t\t  Rs. {0}", totalPrice);
+                Console.WriteLine("\t\t \t\t\t\t\t\t\t  Rs. {0}", totalPrice);
+                //Console.WriteLine("\n");
+
+                Excel excel = new Excel(@"E:\Ubisoft\Courses\Projects\Billing Application\products.xlsx", 6);
+                double discount = Convert.ToDouble(excel.ReadCell(1, 2));
+                priceAfterDiscount = totalPrice - (discount / 100) * totalPrice;
+
+                Console.WriteLine("\tDiscount \t\t\t\t\t\t\t       -{0}%", discount);
+                Console.WriteLine("----------------------------------------------------------------------------------");
+                Console.WriteLine("\tTotal Price \t\t\t\t\t\t\t  Rs. {0}", priceAfterDiscount);
                 Console.WriteLine("\n");
             }
             else
