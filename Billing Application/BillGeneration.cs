@@ -82,6 +82,7 @@ namespace Billing_Application
                 Console.WriteLine("----------------------------------------------------------------------------------");
                 Console.WriteLine("\tTotal Price \t\t\t\t\t\t\t  Rs. {0}", priceAfterDiscount);
                 Console.WriteLine("\n");
+                excel.close();
             }
             else
             {
