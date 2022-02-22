@@ -2,16 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+//using System.Threading.Tasks;
 
 namespace Billing_Application
 {
     class Program
     {
         private static BillGeneration _bill = new BillGeneration();
+        private static Mutex mutex = null;
 
         static int Main(string[] args)
         {
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            //      check if instance is already running 
+
+            const string appName = "billingApplication";
+            bool createdNew;
+
+            mutex = new Mutex(true, appName, out createdNew);
+
+            if (!createdNew)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(appName + " is already running! Exiting the application.");
+                Console.ReadKey();
+                return 0;
+            }
+            /////////////////////////////////////////////////////////////////////////////////////////////////
+
+
             Console.WriteLine(" Loading...\n Please wait.");
             List<Item> books = Categories.LoadBooks();
             List<Item> fruits = Categories.LoadFruits();
